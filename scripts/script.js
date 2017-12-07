@@ -1,5 +1,6 @@
 var ZOOM_SIZE = 50; // dependent on server
 var VISIBLE_SIZE = 40;
+var PLAYER_SIZE = 25;
 
 function renderAll(playerData,powerupData) {
   var canvas = document.getElementById("canvas");
@@ -31,7 +32,12 @@ function renderAll(playerData,powerupData) {
     dx += size / 2;
     dy += size / 2;
     ctx.fillStyle = playerData[i][3];
-    ctx.fillRect(dx,dy,10,10);
+    ctx.beginPath();
+    ctx.arc(dx,dy,PLAYER_SIZE,0,Math.PI * 2,false);
+    ctx.fill();
+    ctx.closePath();
+    ctx.font = "30px Arial";
+    ctx.fillText(playerData[i][2],dx,dy - 40);
   }
 }
 

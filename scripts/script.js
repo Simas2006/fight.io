@@ -39,6 +39,7 @@ function renderAll(playerData,powerupData) {
     ctx.font = "30px Arial";
     ctx.fillText(playerData[i][2],dx,dy - 40);
   }
+  // render powerups
 }
 
 window.onload = function() {

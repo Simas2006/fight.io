@@ -1,0 +1,7 @@
+Speed/Slowness
+Strength/Weakness
+Health/Death
+Invisibility/Locate
+Invincibility/Nuke
+Escape
+WIN EVERYTHING (rare)

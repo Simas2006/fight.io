@@ -21,6 +21,19 @@ function renderAll(playerData,powerupData) {
     ctx.lineTo(i,size);
     ctx.stroke();
   }
+  // render players
+  for ( var i = 0; i < playerData.length; i++ ) {
+    var dx = playerData[i][0] - playerData[0][0];
+    var dy = playerData[i][1] - playerData[0][1];
+    if ( dx > VISIBLE_SIZE || dy > VISIBLE_SIZE ) continue;
+    dx *= size / ZOOM_SIZE;
+    dy *= size / ZOOM_SIZE;
+    dx += size / 2;
+    dy += size / 2;
+    console.log(dx,dy);
+    ctx.fillStyle = playerData[i][3];
+    ctx.fillRect(dx,dy,10,10);
+  }
 }
 
 window.onload = function() {

@@ -1,4 +1,4 @@
-var ZOOM_SIZE = 60; // dependent on server
+var ZOOM_SIZE = 50; // dependent on server
 var VISIBLE_SIZE = 40;
 
 function renderAll(playerData,powerupData) {
@@ -30,7 +30,6 @@ function renderAll(playerData,powerupData) {
     dy *= size / ZOOM_SIZE;
     dx += size / 2;
     dy += size / 2;
-    console.log(dx,dy);
     ctx.fillStyle = playerData[i][3];
     ctx.fillRect(dx,dy,10,10);
   }

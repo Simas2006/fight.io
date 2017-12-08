@@ -40,8 +40,22 @@ function renderAll(playerData,powerupData) {
     ctx.fillText(playerData[i][2],dx,dy - 40);
   }
   // render powerups
+  for ( var i = 0; i < powerupData.length; i++ ) {
+    var dx = powerupData[i][0] - playerData[0][0];
+    var dy = (powerupData[i][1] - 1) - playerData[0][1];
+    if ( dx > VISIBLE_SIZE || dy > VISIBLE_SIZE ) continue;
+    dx *= size / ZOOM_SIZE;
+    dy *= size / ZOOM_SIZE;
+    dx += size / 2;
+    dy += size / 2;
+    var img = new Image();
+    img.src = "/imageassets/powerup_" + powerupData[i][2] + ".png";
+    img.onload = function() {
+      ctx.drawImage(img,dx,dy);
+    }
+  }
 }
 
 window.onload = function() {
-  renderAll([[100,100,"player1","#f00"],[90,90,"player2","#00f"]]);
+  renderAll([[100,100,"player1","#f00"],[90,90,"player2","#00f"]],[[85,90,"speed"]]);
 }

@@ -6,10 +6,10 @@ var active = {
   players: [[100,100,"player1","#f00"],[90,90,"player2","#00f"]],
   powerups: [[100,120,"speed"]],
   inventory: [["speed",4],["health",3],["test",2]],
-  health: 100
+  health: 60
 };
 
-function renderAll(playerData,powerupData,inventoryData) {
+function renderAll(playerData,powerupData,inventoryData,health) {
   var canvas = document.getElementById("canvas");
   var size = Math.min(window.innerWidth,window.innerHeight)
   canvas.width = size;
@@ -61,11 +61,10 @@ function renderAll(playerData,powerupData,inventoryData) {
       loadedCount++;
     });
   }
-  var interval = setInterval(function() {
+  var interval1 = setInterval(function() {
     if ( loadedCount >= powerupData.length ) {
-      clearInterval(interval);
+      clearInterval(interval1);
       // render inventory
-      var loadedCount = 0;
       ctx.strokeStyle = "#ffffff";
       ctx.font = "30px Arial";
       ctx.fillStyle = "#000000";
@@ -81,7 +80,21 @@ function renderAll(playerData,powerupData,inventoryData) {
           });
         }
       }
-      
+      var interval2 = setInterval(function() {
+        if ( loadedCount >= inventoryData.length ) {
+          clearInterval(interval2);
+          // render health
+          ctx.fillStyle = "#000000";
+          ctx.fillRect(size - ZOOM_SIZE,size - (10 * ZOOM_SIZE),ZOOM_SIZE,10 * ZOOM_SIZE);
+          ctx.strokeRect(size - ZOOM_SIZE,size - (10 * ZOOM_SIZE),ZOOM_SIZE,10 * ZOOM_SIZE);
+          var gradient = ctx.createLinearGradient(size - ZOOM_SIZE,size - (10 * ZOOM_SIZE),ZOOM_SIZE,10 * ZOOM_SIZE);
+          gradient.addColorStop(0,"green");
+          gradient.addColorStop(0.2,"yellow");
+          gradient.addColorStop(0.35,"red");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(size - ZOOM_SIZE,size - (10 * ZOOM_SIZE) + ((10 - (health / 10)) * ZOOM_SIZE),ZOOM_SIZE,ZOOM_SIZE * 10);
+        }
+      },100);
     }
   },100);
 }
@@ -104,5 +117,5 @@ function getImage(url,secure,callback) {
 }
 
 window.onload = function() {
-  renderAll(active.players,active.powerups,active.inventory);
+  renderAll(active.players,active.powerups,active.inventory,active.health);
 }

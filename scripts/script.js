@@ -1,15 +1,17 @@
 var ZOOM_SIZE = 50; // dependent on server
 var VISIBLE_SIZE = 40;
 var PLAYER_SIZE = 25;
+var socket = io();
 var loadedImages = {};
 var active = {
-  players: [[100,100,"player1","#f00"],[90,90,"player2","#00f"]],
-  powerups: [[100,120,"speed"]],
-  inventory: [["speed",4],["health",3],["test",2]],
-  health: 60
+  players: [],
+  powerups: [],
+  inventory: [],
+  health: 0
 };
 
 function renderAll(playerData,powerupData,inventoryData,health) {
+  if ( playerData.length < 1 ) return;
   var canvas = document.getElementById("canvas");
   var size = Math.min(window.innerWidth,window.innerHeight)
   canvas.width = size;
@@ -117,5 +119,12 @@ function getImage(url,secure,callback) {
 }
 
 window.onload = function() {
-  renderAll(active.players,active.powerups,active.inventory,active.health);
+  setTimeout(function() {
+    // set up active data
+    socket.emit("join",location.search.slice(1));
+  },500);
+}
+
+window.onkeyup = function(e) {
+  var keyid = e.which || e.keyCode;
 }
